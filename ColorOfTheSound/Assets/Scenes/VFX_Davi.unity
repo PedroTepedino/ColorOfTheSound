@@ -6635,11 +6635,11 @@ ParticleSystem:
     enabled: 1
     mode: 0
     timeMode: 0
-    fps: 30
+    fps: 4
     frameOverTime:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 0.9999
+      scalar: 0.8333333
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6672,11 +6672,20 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
+          time: 0.953749
           value: 1
-          inSlope: 0
+          inSlope: -0
+          outSlope: -21.621155
+          tangentMode: 69
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -21.621155
           outSlope: 0
-          tangentMode: 136
+          tangentMode: 69
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
@@ -6761,7 +6770,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 3
+    tilesX: 4
     tilesY: 3
     animationType: 0
     rowIndex: 0
