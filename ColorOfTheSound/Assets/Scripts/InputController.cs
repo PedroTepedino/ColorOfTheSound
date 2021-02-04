@@ -2,22 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputController : MonoBehaviour
+public class InputController 
 {
     private PlayerControlScheme _controls;
+    
+    public event Action<Vector2> OnMove;
+    
 
-    private void Awake()
+    public InputController()
     {
         _controls = new PlayerControlScheme();
+        
+        SubscribeFunctions();        
     }
 
-    private void OnEnable()
+    public void EnableGameplayInput()
     {
         _controls.Gameplay.Enable();
-        _controls.Gameplay.Move.performed += OnMove;
     }
     
-    private void OnMove(InputAction.CallbackContext context)
+    private void OnMoveInput(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
@@ -25,7 +29,13 @@ public class InputController : MonoBehaviour
         {
             moveInput.Normalize();
         }
+        
+        OnMove?.Invoke(moveInput);
+    }
 
-        Debug.Log($"Move input: {moveInput}");
+    private void SubscribeFunctions()
+    {
+        _controls.Gameplay.Move.performed += OnMoveInput;
+        _controls.Gameplay.Move.canceled += OnMoveInput;
     }
 }
