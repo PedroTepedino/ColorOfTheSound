@@ -104,7 +104,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - Color_5c34be9beae1489d9597409c13b524b3: {r: 8, g: 8, b: 8, a: 1}
-    - Color_7D9E84EC: {r: 64, g: 64, b: 64, a: 1}
+    - Color_7D9E84EC: {r: 23.968628, g: 23.968628, b: 23.968628, a: 1}
     - Vector2_74479B4E: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_C12106B1: {r: 0.05, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
