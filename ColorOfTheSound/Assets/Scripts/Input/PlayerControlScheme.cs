@@ -27,9 +27,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ButtonTest"",
+                    ""name"": ""BasicAttack"",
                     ""type"": ""Button"",
-                    ""id"": ""99a00ab5-8a97-4381-9e4b-f7d899316f45"",
+                    ""id"": ""52b2de14-b598-4b63-bb84-3734d40c78e4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -104,23 +104,23 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""afcc0b14-4b0a-4de0-91eb-d4c9640fb6bb"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""id"": ""c4b5e99e-12bb-49d4-9c0c-5154b713f3f6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ButtonTest"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fad95ff8-2287-412e-9922-a9526c173253"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""f158fa0b-1fbf-48aa-b663-1b4809dfe8ce"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ButtonTest"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,7 +132,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_ButtonTest = m_Gameplay.FindAction("ButtonTest", throwIfNotFound: true);
+        m_Gameplay_BasicAttack = m_Gameplay.FindAction("BasicAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,13 +183,13 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_ButtonTest;
+    private readonly InputAction m_Gameplay_BasicAttack;
     public struct GameplayActions
     {
         private @PlayerControlScheme m_Wrapper;
         public GameplayActions(@PlayerControlScheme wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @ButtonTest => m_Wrapper.m_Gameplay_ButtonTest;
+        public InputAction @BasicAttack => m_Wrapper.m_Gameplay_BasicAttack;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -202,9 +202,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @ButtonTest.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnButtonTest;
-                @ButtonTest.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnButtonTest;
-                @ButtonTest.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnButtonTest;
+                @BasicAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -212,9 +212,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @ButtonTest.started += instance.OnButtonTest;
-                @ButtonTest.performed += instance.OnButtonTest;
-                @ButtonTest.canceled += instance.OnButtonTest;
+                @BasicAttack.started += instance.OnBasicAttack;
+                @BasicAttack.performed += instance.OnBasicAttack;
+                @BasicAttack.canceled += instance.OnBasicAttack;
             }
         }
     }
@@ -222,6 +222,6 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnButtonTest(InputAction.CallbackContext context);
+        void OnBasicAttack(InputAction.CallbackContext context);
     }
 }
