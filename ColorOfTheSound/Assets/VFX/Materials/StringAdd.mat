@@ -8,21 +8,27 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: StringAdd
-  m_Shader: {fileID: -6465566751694194690, guid: 36f95c79d9f73a04ba9eab622e38c075, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e9a993b01d6046545abba81fcd4f7075, type: 3}
   m_ShaderKeywords: _DOUBLESIDED_ON _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
+    MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_12538D6B:
+        m_Texture: {fileID: 2800000, guid: 09804733a04bf8544ae0781eb35b12a5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_718d42064d4f4d5aa64d7be69ce03d0d:
         m_Texture: {fileID: 2800000, guid: f99133cee2c89db40904528c0ad9bac7, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -40,6 +46,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_3BD888F6: 0.1
+    - Vector1_8D588927: 10
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 1
@@ -83,6 +91,9 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - Color_5c34be9beae1489d9597409c13b524b3: {r: 32, g: 32, b: 32, a: 1}
+    - Color_7D9E84EC: {r: 64, g: 64, b: 64, a: 1}
+    - Vector2_74479B4E: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_C12106B1: {r: 1, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
