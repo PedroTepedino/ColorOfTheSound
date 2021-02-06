@@ -14,9 +14,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ButtonTest",
+                    "name": "BasicAttack",
                     "type": "Button",
-                    "id": "99a00ab5-8a97-4381-9e4b-f7d899316f45",
+                    "id": "52b2de14-b598-4b63-bb84-3734d40c78e4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -91,23 +91,23 @@
                 },
                 {
                     "name": "",
-                    "id": "afcc0b14-4b0a-4de0-91eb-d4c9640fb6bb",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "c4b5e99e-12bb-49d4-9c0c-5154b713f3f6",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ButtonTest",
+                    "action": "BasicAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "fad95ff8-2287-412e-9922-a9526c173253",
-                    "path": "<Keyboard>/space",
+                    "id": "f158fa0b-1fbf-48aa-b663-1b4809dfe8ce",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ButtonTest",
+                    "action": "BasicAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
