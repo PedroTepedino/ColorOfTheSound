@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SixteenthNoteAdd
+  m_Name: StarAdd
   m_Shader: {fileID: -6465566751694194690, guid: 36f95c79d9f73a04ba9eab622e38c075, type: 3}
   m_ShaderKeywords: _DOUBLESIDED_ON _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
@@ -15,10 +15,8 @@ Material:
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
-    MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
-  - MOTIONVECTORS
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
@@ -26,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_718d42064d4f4d5aa64d7be69ce03d0d:
-        m_Texture: {fileID: 2800000, guid: f6d4dfeaf8b294140ada25d95b8955b3, type: 3}
+        m_Texture: {fileID: 2800000, guid: b703f2aef8b378c4694ab0b8e36fb87d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -84,11 +82,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_5c34be9beae1489d9597409c13b524b3: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
+    - Color_5c34be9beae1489d9597409c13b524b3: {r: 8, g: 8, b: 8, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1993267689080249637
+--- !u!114 &5420841633633822281
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
