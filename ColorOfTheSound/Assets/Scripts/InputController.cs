@@ -11,17 +11,25 @@ public class InputController
     public event Action OnBasicAttack;
     public event Action OnStunAttack;
     
+    
+    
 
     public InputController()
     {
-        _controls = new PlayerControlScheme();
+        Controls = new PlayerControlScheme();
         
         SubscribeFunctions();        
     }
 
+    public PlayerControlScheme Controls
+    {
+        get => _controls;
+        set => _controls = value;
+    }
+
     public void EnableGameplayInput()
     {
-        _controls.Gameplay.Enable();
+        Controls.Gameplay.Enable();
     }
     
     private void OnMoveInput(InputAction.CallbackContext context)
@@ -48,11 +56,11 @@ public class InputController
 
     private void SubscribeFunctions()
     {
-        _controls.Gameplay.Move.performed += OnMoveInput;
-        _controls.Gameplay.Move.canceled += OnMoveInput;
+        Controls.Gameplay.Move.performed += OnMoveInput;
+        Controls.Gameplay.Move.canceled += OnMoveInput;
         
-        _controls.Gameplay.BasicAttack.performed += OnBasicAttackInput;
+        Controls.Gameplay.BasicAttack.performed += OnBasicAttackInput;
         
-        _controls.Gameplay.StunAttack.performed += OnBasicStunAttackInput;
+        Controls.Gameplay.StunAttack.performed += OnBasicStunAttackInput;
     }
 }

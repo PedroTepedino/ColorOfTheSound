@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
@@ -46,8 +48,15 @@ public class Player : MonoBehaviour
         _mover = new Mover(this);
         _basicAttacker = new BasicAttacker(this);
         _stunAttacker = new StunAttacker(this);
+
+        GameManager.Instance.Controller.Controls.Gameplay.BombAttack.performed += OnBomb;
     }
-    
+
+    private void OnBomb(InputAction.CallbackContext obj)
+    {
+        PoolingSystem.Instance.SpawnObject("Bomb");
+    }
+
     private void FixedUpdate()
     {
         _mover.Tick();

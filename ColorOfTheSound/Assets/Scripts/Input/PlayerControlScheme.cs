@@ -41,6 +41,14 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""BombAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""7646f4f6-348f-4643-9a8e-bac3c76876f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -153,6 +161,28 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""action"": ""StunAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4952125e-c8a2-4804-9e9a-bb52e335fb26"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BombAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb5a4fbc-b67b-4aec-ac2a-786fa83632fa"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BombAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +194,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_BasicAttack = m_Gameplay.FindAction("BasicAttack", throwIfNotFound: true);
         m_Gameplay_StunAttack = m_Gameplay.FindAction("StunAttack", throwIfNotFound: true);
+        m_Gameplay_BombAttack = m_Gameplay.FindAction("BombAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,6 +247,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_BasicAttack;
     private readonly InputAction m_Gameplay_StunAttack;
+    private readonly InputAction m_Gameplay_BombAttack;
     public struct GameplayActions
     {
         private @PlayerControlScheme m_Wrapper;
@@ -223,6 +255,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @BasicAttack => m_Wrapper.m_Gameplay_BasicAttack;
         public InputAction @StunAttack => m_Wrapper.m_Gameplay_StunAttack;
+        public InputAction @BombAttack => m_Wrapper.m_Gameplay_BombAttack;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -241,6 +274,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @StunAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
                 @StunAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
                 @StunAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
+                @BombAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
+                @BombAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
+                @BombAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -254,6 +290,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @StunAttack.started += instance.OnStunAttack;
                 @StunAttack.performed += instance.OnStunAttack;
                 @StunAttack.canceled += instance.OnStunAttack;
+                @BombAttack.started += instance.OnBombAttack;
+                @BombAttack.performed += instance.OnBombAttack;
+                @BombAttack.canceled += instance.OnBombAttack;
             }
         }
     }
@@ -263,5 +302,6 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnStunAttack(InputAction.CallbackContext context);
+        void OnBombAttack(InputAction.CallbackContext context);
     }
 }
