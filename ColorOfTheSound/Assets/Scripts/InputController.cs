@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class InputController
     
     public event Action<Vector2> OnMove;
     public event Action OnBasicAttack;
+    public event Action OnStunAttack;
     
 
     public InputController()
@@ -34,9 +36,14 @@ public class InputController
         OnMove?.Invoke(moveInput);
     }
     
-    private void OnAttackInput(InputAction.CallbackContext obj)
+    private void OnBasicAttackInput(InputAction.CallbackContext context)
     {
         OnBasicAttack?.Invoke();
+    }
+
+    protected virtual void OnBasicStunAttackInput(InputAction.CallbackContext context)
+    {
+        OnStunAttack?.Invoke();
     }
 
     private void SubscribeFunctions()
@@ -44,6 +51,8 @@ public class InputController
         _controls.Gameplay.Move.performed += OnMoveInput;
         _controls.Gameplay.Move.canceled += OnMoveInput;
         
-        _controls.Gameplay.BasicAttack.performed += OnAttackInput;
+        _controls.Gameplay.BasicAttack.performed += OnBasicAttackInput;
+        
+        _controls.Gameplay.StunAttack.performed += OnBasicStunAttackInput;
     }
 }

@@ -33,6 +33,14 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""StunAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ac058ae-8d4b-45dd-aa96-000ac948cbe8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -123,6 +131,28 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92f81692-dfc6-491b-9480-aa3550dff469"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StunAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abca1aff-86c3-4bd5-92f4-368c4a7f4d0b"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StunAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +163,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_BasicAttack = m_Gameplay.FindAction("BasicAttack", throwIfNotFound: true);
+        m_Gameplay_StunAttack = m_Gameplay.FindAction("StunAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -184,12 +215,14 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_BasicAttack;
+    private readonly InputAction m_Gameplay_StunAttack;
     public struct GameplayActions
     {
         private @PlayerControlScheme m_Wrapper;
         public GameplayActions(@PlayerControlScheme wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @BasicAttack => m_Wrapper.m_Gameplay_BasicAttack;
+        public InputAction @StunAttack => m_Wrapper.m_Gameplay_StunAttack;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -205,6 +238,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @BasicAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
                 @BasicAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
                 @BasicAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBasicAttack;
+                @StunAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
+                @StunAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
+                @StunAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStunAttack;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -215,6 +251,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @BasicAttack.started += instance.OnBasicAttack;
                 @BasicAttack.performed += instance.OnBasicAttack;
                 @BasicAttack.canceled += instance.OnBasicAttack;
+                @StunAttack.started += instance.OnStunAttack;
+                @StunAttack.performed += instance.OnStunAttack;
+                @StunAttack.canceled += instance.OnStunAttack;
             }
         }
     }
@@ -223,5 +262,6 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
+        void OnStunAttack(InputAction.CallbackContext context);
     }
 }

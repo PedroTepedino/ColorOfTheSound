@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1136496535835944058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4670624966830670080}
   - {fileID: 1017529062772556291}
@@ -52,7 +52,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -111,7 +111,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4941,7 +4941,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -5000,7 +5000,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9791,6 +9791,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
       propertyPath: SizeModule.enabled
       value: 1
       objectReference: {fileID: 0}
@@ -9988,6 +9996,14 @@ PrefabInstance:
     - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
       propertyPath: lengthInSec
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
+      propertyPath: scalingMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1455117724245293397, guid: 42114dec83f7557489fc25ded3184fef, type: 3}
       propertyPath: SizeModule.enabled
@@ -10231,6 +10247,14 @@ PrefabInstance:
     - target: {fileID: 6960891564497424870, guid: 1095a294aedd9584ebf120720a78aee4, type: 3}
       propertyPath: lengthInSec
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960891564497424870, guid: 1095a294aedd9584ebf120720a78aee4, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960891564497424870, guid: 1095a294aedd9584ebf120720a78aee4, type: 3}
+      propertyPath: scalingMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6960891564497424870, guid: 1095a294aedd9584ebf120720a78aee4, type: 3}
       propertyPath: RotationModule.curve.scalar
