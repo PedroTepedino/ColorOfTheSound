@@ -8,14 +8,18 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class PrefabPool
 {
-    [HorizontalGroup("Non-Listed", 80)] [PreviewField(80, ObjectFieldAlignment.Left)] [HideLabel] [AssetsOnly]
+    [HorizontalGroup("Non-Listed", 80)] [PreviewField(80, ObjectFieldAlignment.Left)] [ValidateInput("GameObjectCheck",  "MISSING IPoolableObject !")] [HideLabel] [AssetsOnly]
     public GameObject Prefab;
-    [HorizontalGroup("Non-Listed")] [BoxGroup("Non-Listed/Properties", false)]
+    [HorizontalGroup("Non-Listed")] [BoxGroup("Non-Listed/Properties", false)] [ValidateInput("TagCheck", "Tag Cannot be Null")]
     public string Tag;
-    [HorizontalGroup("Non-Listed")] [BoxGroup("Non-Listed/Properties", false)]
+    [HorizontalGroup("Non-Listed")] [BoxGroup("Non-Listed/Properties", false)] [ValidateInput("ObjCountCheck", "Object count cannot be negative!")]
     public int ObjCount = 1;
     [HorizontalGroup("Non-Listed")] [BoxGroup("Non-Listed/Properties", false)]
     public bool IsExpandable = true;
+
+    private bool GameObjectCheck() => Prefab != null && Prefab.GetComponent<IPoolableObject>() != null; 
+    private bool TagCheck() => Tag.Length > 0;
+    private bool ObjCountCheck() => ObjCount >= 0;
 }
 
 public class ObjectPool
@@ -24,7 +28,7 @@ public class ObjectPool
     public readonly GameObject Prefab;
     public readonly bool IsExpandable ;
 
-    public Queue<IPoolableObject> Pool;
+    public Queue<GameObject> Pool;
 
     public ObjectPool(PrefabPool _prefab)
     {
@@ -32,7 +36,7 @@ public class ObjectPool
         Prefab = _prefab.Prefab;
         IsExpandable = _prefab.IsExpandable;
 
-        Pool = new Queue<IPoolableObject>();
+        Pool = new Queue<GameObject>();
         
         PopulatePool(_prefab.ObjCount);
     }
@@ -43,17 +47,17 @@ public class ObjectPool
         {
             var obj = CreateObject();
             
-            obj.ThisGameObject.SetActive(false);
+            obj.SetActive(false);
             
             Pool.Enqueue(obj);
         }
     }
 
-    public IPoolableObject GetObject()
+    public GameObject GetObject()
     {
-        IPoolableObject obj = null;
+        GameObject obj = null;
         
-        if (Pool.Peek().IsActiveInHierarchy)
+        if (Pool.Peek().activeInHierarchy)
         {
             obj = IsExpandable ? CreateObject() : Pool.Dequeue();
         }
@@ -67,13 +71,13 @@ public class ObjectPool
         return obj;
     }
 
-    private IPoolableObject CreateObject()
+    private GameObject CreateObject()
     {
         var obj = Object.Instantiate(Prefab);
         
         Object.DontDestroyOnLoad(obj);
-        
-        return obj.GetComponent<IPoolableObject>();
+
+        return obj;
     }
 }
 
@@ -117,9 +121,9 @@ public class PoolingSystem : MonoBehaviour
 
         var obj =  _objectPools[tag].GetObject();
         
-        obj.ThisGameObject.SetActive(true);
-        obj.OnSpawn();
+        obj.SetActive(true);
+        obj.GetComponent<IPoolableObject>().OnSpawn();
 
-        return obj.ThisGameObject;
+        return obj;
     }
 }

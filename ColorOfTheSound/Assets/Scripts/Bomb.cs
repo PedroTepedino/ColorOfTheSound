@@ -1,18 +1,24 @@
 using System;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Bomb : MonoBehaviour, IPoolableObject
 {
-    [Header("Parameters")]
-    [SerializeField] private float _radius = 2f;
-
-    [SerializeField] private float _timeToExplode = 5f;
+    [InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)]
+    [SerializeField] private BombType _bombParameters;
     private float _timer = 0f;
 
     public void OnSpawn()
     {
-        Debug.Log("OiGato");
-        _timer = _timeToExplode;
+        if (_bombParameters == null)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+    
+        _timer = _bombParameters.TimeToExplode;
     }
 
     private void Update()
@@ -28,9 +34,79 @@ public class Bomb : MonoBehaviour, IPoolableObject
         Debug.Log("Explode");
         this.gameObject.SetActive(false);
     }
-
+    
     public GameObject ThisGameObject => this.gameObject;
     public bool IsActiveInHierarchy => this.gameObject.activeInHierarchy;
+
+#if UNITY_EDITOR
     
+    private void OnValidate()
+    {
+        if (_bombParameters != null && !_bombParameters.Equals(null)) return;
+        
+        _bombParameters = FindDefaultParameterAssetOfType<BombType>();
+    }
+
     
+    private static T FindDefaultParameterAssetOfType<T>(string typeFilter = null) where T : ScriptableObject
+    {
+        if (typeFilter == null)
+        {
+            typeFilter = typeof(T).FullName;
+            Debug.Log(typeFilter);
+        }
+        
+        var bombs = AssetDatabase.FindAssets($"t:{typeFilter}", new []{"Assets/ScriptableObjects"});
+
+        foreach (var bomb in bombs)
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(bomb));
+            
+            if (asset == null) continue;
+            
+            return asset;
+        }
+
+        var defaultParameters = AssetDatabase.LoadAssetAtPath<T>($"Assets/ScriptableObjects/Default{typeFilter}.asset");
+        if (defaultParameters != null)
+        {
+            return defaultParameters;
+        }
+        
+        T createdParameters = (T)ScriptableObject.CreateInstance(typeof(T));
+        AssetDatabase.CreateAsset(createdParameters, $"Assets/ScriptableObjects/Default{typeFilter}.asset");
+        AssetDatabase.Refresh();
+        
+        return createdParameters;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (_bombParameters == null) return;
+        
+        Handles.zTest = CompareFunction.LessEqual;
+
+        var position = transform.position;
+
+        Handles.color = new Color(1f, 0f, 0f, 0.05f);
+        Handles.DrawSolidDisc(position, Vector3.up, _bombParameters.Radius);
+
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(position, Vector3.up, _bombParameters.Radius);
+        Vector3[] points = new[]
+        {
+            position,
+            position + (Vector3.forward * _bombParameters.Radius),
+            position,
+            position + (Vector3.right * _bombParameters.Radius), 
+            position,
+            position + (Vector3.back * _bombParameters.Radius),
+            position,
+            position + (Vector3.left * _bombParameters.Radius)
+        };
+
+        
+        Handles.DrawLines(points);
+    }
+#endif
 }

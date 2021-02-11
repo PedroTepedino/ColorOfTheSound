@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CustomEditor(typeof(Player)), CanEditMultipleObjects]
 public class PlayerEditor : Editor
@@ -16,13 +17,14 @@ public class PlayerEditor : Editor
         var position = transform.position;
         var right = transform.right;
 
+        Handles.zTest = CompareFunction.LessEqual;
+        
         Handles.color = Color.magenta;
         Vector3 newAttackerDistance = Handles.Slider(position + (right * player.AttackDistance), right, 1f, Handles.ArrowHandleCap, 0.1f );
         float newTargetRadius = Handles.RadiusHandle(Quaternion.identity, position + (right * player.AttackDistance), player.BasicAttackRadius);
 
         Handles.color = Color.yellow;
         float newStunAttackRadius = Handles.RadiusHandle(Quaternion.identity, position, player.StunAttackRadius);
-
         
         if (EditorGUI.EndChangeCheck())
         {
