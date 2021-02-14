@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -44,40 +43,7 @@ public class Bomb : MonoBehaviour, IPoolableObject
     {
         if (_bombParameters != null && !_bombParameters.Equals(null)) return;
         
-        _bombParameters = FindDefaultParameterAssetOfType<BombType>();
-    }
-
-    
-    private static T FindDefaultParameterAssetOfType<T>(string typeFilter = null) where T : ScriptableObject
-    {
-        if (typeFilter == null)
-        {
-            typeFilter = typeof(T).FullName;
-            Debug.Log(typeFilter);
-        }
-        
-        var bombs = AssetDatabase.FindAssets($"t:{typeFilter}", new []{"Assets/ScriptableObjects"});
-
-        foreach (var bomb in bombs)
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(bomb));
-            
-            if (asset == null) continue;
-            
-            return asset;
-        }
-
-        var defaultParameters = AssetDatabase.LoadAssetAtPath<T>($"Assets/ScriptableObjects/Default{typeFilter}.asset");
-        if (defaultParameters != null)
-        {
-            return defaultParameters;
-        }
-        
-        T createdParameters = (T)ScriptableObject.CreateInstance(typeof(T));
-        AssetDatabase.CreateAsset(createdParameters, $"Assets/ScriptableObjects/Default{typeFilter}.asset");
-        AssetDatabase.Refresh();
-        
-        return createdParameters;
+        _bombParameters = HelperFunctions.FindDefaultParameterAssetOfType<BombType>();
     }
 
     private void OnDrawGizmosSelected()
@@ -104,7 +70,6 @@ public class Bomb : MonoBehaviour, IPoolableObject
             position,
             position + (Vector3.left * _bombParameters.Radius)
         };
-
         
         Handles.DrawLines(points);
     }

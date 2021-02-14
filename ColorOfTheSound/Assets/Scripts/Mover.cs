@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Mover
+public class Mover : IMover
 {
     private readonly Rigidbody _rigidBody;
     private readonly Transform _playerTransform;
@@ -49,3 +49,4 @@ public class Mover
         return Quaternion.Euler(0, - Mathf.Atan2(input.z, input.x) * Mathf.Rad2Deg,0);
     }
 }
+

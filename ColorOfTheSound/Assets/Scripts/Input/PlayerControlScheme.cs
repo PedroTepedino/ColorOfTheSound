@@ -49,6 +49,14 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""5401fb3b-f735-4c73-95e8-48a34f338e8d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -183,6 +191,28 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                     ""action"": ""BombAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d1c8164-ed45-499b-9b99-6ac032341595"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3ade764-434a-4ca8-a594-a97c28a08ea0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +225,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         m_Gameplay_BasicAttack = m_Gameplay.FindAction("BasicAttack", throwIfNotFound: true);
         m_Gameplay_StunAttack = m_Gameplay.FindAction("StunAttack", throwIfNotFound: true);
         m_Gameplay_BombAttack = m_Gameplay.FindAction("BombAttack", throwIfNotFound: true);
+        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -248,6 +279,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_BasicAttack;
     private readonly InputAction m_Gameplay_StunAttack;
     private readonly InputAction m_Gameplay_BombAttack;
+    private readonly InputAction m_Gameplay_Dash;
     public struct GameplayActions
     {
         private @PlayerControlScheme m_Wrapper;
@@ -256,6 +288,7 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         public InputAction @BasicAttack => m_Wrapper.m_Gameplay_BasicAttack;
         public InputAction @StunAttack => m_Wrapper.m_Gameplay_StunAttack;
         public InputAction @BombAttack => m_Wrapper.m_Gameplay_BombAttack;
+        public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -277,6 +310,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @BombAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
                 @BombAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
                 @BombAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBombAttack;
+                @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -293,6 +329,9 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
                 @BombAttack.started += instance.OnBombAttack;
                 @BombAttack.performed += instance.OnBombAttack;
                 @BombAttack.canceled += instance.OnBombAttack;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -303,5 +342,6 @@ public class @PlayerControlScheme : IInputActionCollection, IDisposable
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnStunAttack(InputAction.CallbackContext context);
         void OnBombAttack(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

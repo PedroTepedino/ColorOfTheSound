@@ -1,4 +1,4 @@
 ﻿public interface IHittable
 {
-    void Hit();
+    void Hit(int damage);
 }

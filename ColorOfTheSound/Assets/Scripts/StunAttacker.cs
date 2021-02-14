@@ -22,12 +22,15 @@ public class StunAttacker : IAttackAction
     public void OnAttack()
     {
         _particleSystem.Play();
+        
         Collider[] colliders = new Collider[10];
         int hitCount = Physics.OverlapSphereNonAlloc(_playerTransform.position, _radius, colliders);
 
         for (int i = 0; i < hitCount; i++)
         {
             colliders[i].GetComponent<IStunable>()?.Stun(_stunTime);
+        
+            colliders[i].GetComponent<IHittable>()?.Hit(1);
         }
     }
 }

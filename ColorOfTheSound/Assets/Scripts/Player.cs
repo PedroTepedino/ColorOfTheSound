@@ -1,4 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor;
+using UnityEditor.SceneTemplate;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,10 +13,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private bool _viewGizmos = true;
     
-    private Mover _mover;
+    private IMover _mover;
     private BasicAttacker _basicAttacker;
     private StunAttacker _stunAttacker;
-
+ 
     [Header("Components")]
     [SerializeField] private Rigidbody _rigidbody;
     
@@ -27,7 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _stunAttackRadius = 5f;
     [SerializeField] private float _stunTime = 2f;
     [SerializeField] private ParticleSystem _stunAttackParticleSystem;
-    
+
     #region Properties
     
     public Rigidbody Body => _rigidbody;
@@ -49,17 +55,34 @@ public class Player : MonoBehaviour
         _basicAttacker = new BasicAttacker(this);
         _stunAttacker = new StunAttacker(this);
 
-        GameManager.Instance.Controller.Controls.Gameplay.BombAttack.performed += OnBomb;
+        GameManager.Instance.Controller.Controls.Gameplay.BombAttack.started += OnBomb;
+    }
+
+    private static List<BombType> _parametes;
+    
+    
+
+    private void Update()
+    {
+        Debug.Log($"mover = {_mover}");
     }
 
     private void OnBomb(InputAction.CallbackContext obj)
     {
-        PoolingSystem.Instance.SpawnObject("Bomb");
+        Debug.Log("Bomb Input");
     }
 
     private void FixedUpdate()
     {
-        _mover.Tick();
+        _mover?.Tick();
+    }
+
+    private IMover ChangeMoverType<T>() where T : IMover
+    {
+        if (typeof(T) == typeof(Dasher))
+            return new Dasher(this);
+        else
+            return new Mover(this);
     }
 
     private void OnValidate()
@@ -68,5 +91,19 @@ public class Player : MonoBehaviour
         {
             _rigidbody = this.GetComponent<Rigidbody>();
         }
+    }
+}
+
+public class Dasher : IMover
+{
+    public bool Teste = true;
+    public Dasher(Player player)
+    {
+        
+    }
+    
+    public void Tick()
+    {
+        
     }
 }
